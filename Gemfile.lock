@@ -109,6 +109,8 @@ GEM
     date_validator (0.12.0)
       activemodel (>= 3)
       activesupport (>= 3)
+    deep_cloneable (3.0.0)
+      activerecord (>= 3.1.0, < 7)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -186,6 +188,9 @@ GEM
     i18n_generators (2.2.2)
       activerecord (>= 3.0.0)
       railties (>= 3.0.0)
+    image_processing (1.12.2)
+      mini_magick (>= 4.9.5, < 5)
+      ruby-vips (>= 2.0.17, < 3)
     inline_svg (1.8.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
@@ -341,6 +346,8 @@ GEM
     rubocop-thread_safety (0.4.4)
       rubocop (>= 0.53.0)
     ruby-progressbar (1.11.0)
+    ruby-vips (2.1.4)
+      ffi (~> 1.12)
     rubyzip (2.3.2)
     rufus-scheduler (3.8.2)
       fugit (~> 1.1, >= 1.1.6)
@@ -433,6 +440,7 @@ DEPENDENCIES
   cancancan
   capybara (>= 2.15)
   date_validator
+  deep_cloneable (~> 3.0.0)
   devise
   devise-i18n
   devise-security
@@ -442,6 +450,7 @@ DEPENDENCIES
   faker
   gon
   i18n_generators
+  image_processing (~> 1.2)
   inline_svg
   jbuilder (~> 2.7)
   jquery-ui-rails

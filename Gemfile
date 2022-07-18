@@ -22,6 +22,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Use Active Storage variant
+gem 'image_processing', '~> 1.2'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -35,6 +38,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'
   gem 'rails-controller-testing'
   gem 'dotenv-rails'
+  # Use faker to generate fake data
+
 end
 
 group :development do
@@ -97,6 +102,9 @@ gem 'rustici_software_cloud_v2', '~> 1.1'
 
 # Use S3 SDK for Active Storage
 gem 'aws-sdk-s3'
+
+# Use deep_cloneable for easy ActiveRecord cloning
+gem 'deep_cloneable', '~> 3.0.0'
 
 # Use for validating dates
 gem 'date_validator'
