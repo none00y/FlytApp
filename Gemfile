@@ -39,7 +39,6 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'dotenv-rails'
   # Use faker to generate fake data
-
 end
 
 group :development do
@@ -128,7 +127,7 @@ gem 'sidekiq-scheduler'
 gem 'discard', '~> 1.2'
 
 # Use ddtrace for traces
-#gem 'ddtrace', require: 'ddtrace/auto_instrument'
+# gem 'ddtrace', require: 'ddtrace/auto_instrument'
 
 # Use rack-attack for rate limiting
 gem 'rack-attack'

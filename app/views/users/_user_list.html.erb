@@ -1,0 +1,11 @@
+<% @users.each do |user| %>
+<div>
+  <%= "User email: #{ user.email }" %>
+  <%= "User type: #{ user.user_type }" %>
+  <%= "id: #{ user.id }" %>
+  <%= "Created at: #{ user.created_at }" %>
+  <%= "Updated at: #{ user.updated_at }" %>
+  <%= button_to "Edit", edit_user_path(user), method: :get %>
+  <%= button_to "Destroy", user_path(user), method: :delete %>
+</div>
+<% end %>

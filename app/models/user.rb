@@ -4,12 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates_presence_of :user_type
+
   enum user_type: {
     basic_user: 0,
     admin: 1
   }
 
-  USER_TYPES = user_types.to_h {|k,v| [k.to_sym,k]}.freeze
+  USER_TYPES = user_types.to_h { |k, _v| [k.to_sym, k] }.freeze
 
   def self.get_user_types
     USER_TYPES

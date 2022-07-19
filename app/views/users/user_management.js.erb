@@ -1,0 +1,8 @@
+<% case local_assigns[:action] %>
+  <% when "list" %>
+    document.getElementById("user-list").innerHTML = "<%= j render partial: "users/user_list", locals: {action: "list"} %>";
+  <% when "new" %>
+    document.getElementById("user-form").innerHTML = "<%= j render partial: "users/form", locals: {action: "new"} %>";
+  <% when "edit" %>
+    document.getElementById("user-form").innerHTML = "<%= j render partial: "users/form", locals: {action: "edit"} %>";
+<% end %>

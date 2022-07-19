@@ -1,2 +1,6 @@
 <p>UserList</p>
-<%= render partial: "partial" %>
+<%= button_to "Test JS", test_users_path, remote: true, method: :patch %>
+<%= button_to "new", new_user_path, method: :get %>
+<div id = "user-list">
+  <%= render partial: "user_list" %>  
+</div>  
