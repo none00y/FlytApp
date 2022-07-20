@@ -1,0 +1,12 @@
+<div id="airfield-list">  
+  <% @airfields.each do |airfield| %>
+  <div>
+    <%= t(".airfield_id", id: airfield.id ) %>
+    <%= t(".airfield_name", name: airfield.name ) %>
+    <%= t(".airfield_longitude", longitude: airfield.longitude ) %>
+    <%= t(".airfield_latitude", latitude: airfield.latitude ) %>
+    <%= button_to t(".edit"), edit_airfield_path(airfield), method: :get %>
+    <%= button_to t(".delete"), airfield_path(airfield), method: :delete %>
+  </div>
+  <% end %>
+</div>

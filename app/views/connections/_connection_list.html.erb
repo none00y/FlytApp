@@ -1,0 +1,12 @@
+<div id="connection-list">  
+  <% @connections.each do |connection| %>
+  <div>
+    <%= t(".connection_id", id: connection.id ) %>
+    <%= t(".connection_name", name: connection.name ) %>
+    <%= t(".connection_longitude", longitude: connection.longitude ) %>
+    <%= t(".connection_latitude", latitude: connection.latitude ) %>
+    <%= button_to t(".edit"), edit_connection_path(connection), method: :get %>
+    <%= button_to t(".delete"), connection_path(connection), method: :delete %>
+  </div>
+  <% end %>
+</div>

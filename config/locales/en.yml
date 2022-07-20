@@ -31,3 +31,35 @@
 
 en:
   hello: "Hello world"
+  layouts:
+    application:
+      sign_out: "Sign Out"
+      sign_in: "Sign In"
+      airfields: "Airfields"
+      users: "Users"
+      connections: "Connections"
+  users:
+    user_list:
+      id: "ID: %{id}"
+      email: "Email: %{email}"
+      created_at: "Time of creation: %{created_at}"
+      updated_at: "Last update: %{updated_at}"
+      edit: "Edit"
+      delete: "Delete"
+  airfields:
+    index: 
+      new: "New"
+    form:
+      confirm: "Confirm"
+    airfield_list:
+      airfield_id: "ID: %{id}"
+      airfield_name: "Name: %{name}"
+      airfield_longitude: "%{longitude} N"
+      airfield_latitude: "%{latitude} E"
+      edit: "Edit"
+      delete: "Delete"
+  connections:
+    index:
+      new: "New"
+    connection_list:
+      

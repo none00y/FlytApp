@@ -1,0 +1,21 @@
+<% case local_assigns[:action] %>
+<% when "new" %>
+  <% @airfield ||= Airfield.new %>
+  <%= @airfield.errors.inspect %>
+  <%= simple_form_for @airfield, url: airfields_path(@airfield), remote: true do |form| %>
+    <%= form.input :latitude %>
+    <%= form.input :longitude %>
+    <%= form.input :name %>
+    <%= form.input :airfield_plane_capacity %>    
+    <%= form.submit t(".confirm") %>  
+  <% end %>
+<% when "edit" %>
+  <%= @airfield.errors.inspect %>
+  <%= simple_form_for @airfield, remote: true do |form| %>
+    <%= form.input :latitude %>
+    <%= form.input :longitude %>
+    <%= form.input :name %>
+    <%= form.input :airfield_plane_capacity %>    
+    <%= form.submit t(".confirm") %>  
+  <% end %>
+<% end %>

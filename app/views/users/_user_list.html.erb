@@ -1,11 +1,11 @@
 <% @users.each do |user| %>
 <div>
-  <%= "User email: #{ user.email }" %>
-  <%= "User type: #{ user.user_type }" %>
-  <%= "id: #{ user.id }" %>
-  <%= "Created at: #{ user.created_at }" %>
-  <%= "Updated at: #{ user.updated_at }" %>
-  <%= button_to "Edit", edit_user_path(user), method: :get %>
-  <%= button_to "Destroy", user_path(user), method: :delete %>
+  <%= t(".email",email: user.email) %>
+  <%= t(".user_type",user_type: user.user_type) %>
+  <%= t(".id",id: user.id) %>
+  <%= t(".created_at",created_at: user.created_at) %>
+  <%= t(".updated_at",updated_at: user.updated_at) %>
+  <%= button_to t(".edit"), edit_user_path(user), method: :get %>
+  <%= button_to t(".delete"), user_path(user), method: :delete %>
 </div>
 <% end %>

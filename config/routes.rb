@@ -5,6 +5,13 @@ Rails.application.routes.draw do
       patch 'test'
     end
   end
+
+  resources :airfields do
+  end
+
+  resources :connections do
+  end
+
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     passwords: 'users/passwords',

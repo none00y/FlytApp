@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_18_135626) do
+ActiveRecord::Schema.define(version: 2022_07_20_152500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "airfields", force: :cascade do |t|
+    t.string "name"
+    t.float "latitude"
+    t.float "longitude"
+    t.integer "airfield_plane_capacity"
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.float "distance"
+    t.bigint "airfield_a_id"
+    t.bigint "airfield_b_id"
+    t.index ["airfield_a_id"], name: "index_connections_on_airfield_a_id"
+    t.index ["airfield_b_id"], name: "index_connections_on_airfield_b_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,4 +43,6 @@ ActiveRecord::Schema.define(version: 2022_07_18_135626) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "connections", "airfields", column: "airfield_a_id"
+  add_foreign_key "connections", "airfields", column: "airfield_b_id"
 end

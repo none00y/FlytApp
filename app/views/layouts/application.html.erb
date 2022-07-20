@@ -8,8 +8,11 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <%= button_to "Sign Out", destroy_user_session_path, method: :post if user_signed_in? %>
-    <%= button_to "Sign In", new_user_session_path unless user_signed_in? %>
+    <%= button_to t(".sign_out"), destroy_user_session_path, method: :post if user_signed_in? %>
+    <%= button_to t(".sing_in"), new_user_session_path unless user_signed_in? %>
+    <%= button_to t(".airfields"), airfields_path, method: :get %>
+    <%= button_to t(".users"), users_path, method: :get %>
+    <%= button_to t(".connections"), connections_path, method: :get %>
     <%= yield %>
   </body>
 </html>
