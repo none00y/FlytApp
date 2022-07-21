@@ -12,6 +12,12 @@ Rails.application.routes.draw do
   resources :connections do
   end
 
+  resources :airplanes do
+    resources :passengers do
+      
+    end
+  end
+
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     passwords: 'users/passwords',

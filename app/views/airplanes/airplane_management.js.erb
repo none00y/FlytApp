@@ -1,0 +1,10 @@
+<% case local_assigns[:action] %>
+  <% when "list" %>
+    document.getElementById("airplane-list").innerHTML = "<%= j render partial: "airplanes/airplane_list", locals: {action: "list"} %>";
+  <% when "new" %>
+    document.getElementById("airplane-form").innerHTML = "<%= j render partial: "airplanes/form", locals: {action: "new"} %>";
+  <% when "edit" %>
+    document.getElementById("airplane-form").innerHTML = "<%= j render partial: "airplanes/form", locals: {action: "edit"} %>";
+<% end %>
+
+

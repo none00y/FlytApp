@@ -1,7 +1,8 @@
 class Connection < ApplicationRecord
   belongs_to :airfield_a, optional: false, class_name: 'Airfield', foreign_key: :airfield_a_id
   belongs_to :airfield_b, optional: false, class_name: 'Airfield', foreign_key: :airfield_b_id
-
+  has_many :airplanes
+  
   validates_presence_of :airfield_a_id
   validates_presence_of :airfield_b_id
   validates_presence_of :distance

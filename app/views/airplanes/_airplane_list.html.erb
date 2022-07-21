@@ -1,0 +1,15 @@
+<div id="airplane-list">  
+  <% @airplanes.each do |airplane| %>
+  <div>
+    <%= t(".airplane_id", id: airplane.id ) %>
+    <%= t(".airplane_identifier", identifier: airplane.identifier ) %>
+    <%= t(".airplane_flight_speed", flight_speed: airplane.flight_speed ) %>
+    <%= t(".airplane_departure_day", departure_day: airplane.departure_day) %>
+    <%= t(".airplane_departure_time", departure_time: airplane.departure_time) %>
+    <%= t(".airplane_state", state: airplane.state) %>
+    <%= t(".airplane_passenger_capacity", passenger_capacity: airplane.passenger_capacity) %>
+    <%= button_to t(".edit"), edit_connection_airplane_path(connection, airplane), method: :get %>
+    <%= button_to t(".delete"), airplane_path(connection, airplane), method: :delete %>
+  </div>
+  <% end %>
+</div>

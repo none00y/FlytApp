@@ -38,6 +38,7 @@ en:
       airfields: "Airfields"
       users: "Users"
       connections: "Connections"
+      airplanes: "Airplanes"
   users:
     user_list:
       id: "ID: %{id}"

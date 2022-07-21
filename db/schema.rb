@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_20_152500) do
+ActiveRecord::Schema.define(version: 2022_07_21_045956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,32 @@ ActiveRecord::Schema.define(version: 2022_07_20_152500) do
     t.integer "airfield_plane_capacity"
   end
 
+  create_table "airplanes", force: :cascade do |t|
+    t.string "identifier"
+    t.integer "state"
+    t.float "flight_speed"
+    t.integer "departure_day"
+    t.integer "departure_time"
+    t.float "percentage_of_distance_travelled"
+    t.integer "passenger_capacity"
+    t.bigint "connection_id"
+    t.index ["connection_id"], name: "index_airplanes_on_connection_id"
+  end
+
   create_table "connections", force: :cascade do |t|
     t.float "distance"
     t.bigint "airfield_a_id"
     t.bigint "airfield_b_id"
     t.index ["airfield_a_id"], name: "index_connections_on_airfield_a_id"
     t.index ["airfield_b_id"], name: "index_connections_on_airfield_b_id"
+  end
+
+  create_table "passengers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "state"
+    t.bigint "airplane_id"
+    t.index ["airplane_id"], name: "index_passengers_on_airplane_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -4,7 +4,7 @@ class ConnectionsController < ApplicationController
   end
   
   def show
-
+    
   end
 
   def new
