@@ -3,15 +3,15 @@ class Airplane < ApplicationRecord
 
   validates_presence_of :identifier
   validates_presence_of :flight_speed
-  validates_presence_of :passanger_capacity
+  validates_presence_of :passenger_capacity
 
-  validate :passanger_capacity_is_positive_number
+  validate :passenger_capacity_is_positive_number
   validate :flight_speed_is_positive_number
   validate :identifier_has_proper_format
 
-  def passanger_capacity_is_positive_number
-    return if passanger_capacity.positive?
-    errors.add(:passanger_capacity,"Must be greater than 0")
+  def passenger_capacity_is_positive_number
+    return if passenger_capacity.positive?
+    errors.add(:passenger_capacity,"Must be greater than 0")
   end
 
   def flight_speed_is_positive_number
@@ -20,7 +20,7 @@ class Airplane < ApplicationRecord
   end
   
   def identifier_has_proper_format
-    return if identifier.blank? || identifier.match(/^[A-Z]-[A-Z]{4}|[A-Z]{2}-[A-Z]{3}|N[0-9]{1,5}[A-Z]{0,2}$/)
+    return if identifier.blank? || identifier.match(/^[A-Z]-[A-Z]{4}|[A-Z,0-9]{1,3}-[A-Z]{3}|N[0-9]{1,5}[A-Z]{0,2}$/)
     errors.add(:identifier, "Doesn't match known international registration patterns")
   end
 

@@ -31,6 +31,7 @@
 
 en:
   hello: "Hello world"
+  connection_path: "From %{origin} to %{destination}"
   layouts:
     application:
       sign_out: "Sign Out"
@@ -58,6 +59,21 @@ en:
       airfield_name: "Name: %{name}"
       airfield_longitude: "%{longitude} N"
       airfield_latitude: "%{latitude} E"
+      edit: "Edit"
+      delete: "Delete"
+  airplanes:
+    index: 
+      new: "New"
+    form:
+      confirm: "Confirm"
+    airplane_list:
+      airplane_id: "ID: %{id}"
+      airplane_identifier: "Identifier: %{identifier}"
+      airplane_flight_speed: "Cruise speed: %{flight_speed} km/s"
+      airplane_departure_day: "Departure day: %{departure_day}"
+      airplane_departure_time: "Departure time: %{departure_time}"
+      airplane_state: "State: %{state}"
+      airplane_passenger_capacity: "Max passenger count: %{passenger_capacity}"
       edit: "Edit"
       delete: "Delete"
   connections:

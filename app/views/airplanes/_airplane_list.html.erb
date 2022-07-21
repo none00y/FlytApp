@@ -8,8 +8,8 @@
     <%= t(".airplane_departure_time", departure_time: airplane.departure_time) %>
     <%= t(".airplane_state", state: airplane.state) %>
     <%= t(".airplane_passenger_capacity", passenger_capacity: airplane.passenger_capacity) %>
-    <%= button_to t(".edit"), edit_connection_airplane_path(connection, airplane), method: :get %>
-    <%= button_to t(".delete"), airplane_path(connection, airplane), method: :delete %>
+    <%= button_to t(".edit"), edit_airplane_path(airplane), method: :get %>
+    <%= button_to t(".delete"), airplane_path(airplane), method: :delete %>
   </div>
   <% end %>
 </div>

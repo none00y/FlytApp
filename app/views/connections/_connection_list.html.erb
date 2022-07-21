@@ -2,8 +2,7 @@
   <% @connections.each do |connection| %>
   <div>
     <%= t(".connection_id", id: connection.id ) %>
-    <%= t(".origin", name: Airfield.find(connection.airfield_a_id).name ) %>
-    <%= t(".destination", name: Airfield.find(connection.airfield_b_id).name ) %>
+    <%= connection.description %>
     <%= t(".connection_distance", distance: connection.distance.truncate(2) ) %>
     <%= button_to t(".edit"), edit_connection_path(connection), method: :get %>
     <%= button_to t(".delete"), connection_path(connection), method: :delete %>

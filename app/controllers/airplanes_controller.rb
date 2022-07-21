@@ -24,12 +24,10 @@ class AirplanesController < ApplicationController
   end
 
   def edit
-    byebug
     @airplane = Airplane.find(params[:id])
   end
   
   def update
-    byebug
     @airplane = Airplane.find(params[:id])
     airplane_service = AirplanesService.new(airplane_params,@airplane)
     if airplane_service.update_airplane
@@ -48,8 +46,7 @@ class AirplanesController < ApplicationController
   end
   
   def airplane_params
-    byebug
-    params.require(:airplane).permit()
+    params.require(:airplane).permit(:connection_id, :passenger_capacity, :identifier, :flight_speed, :departure_day, :departure_time, :percentage_of_distance_travelled, :state )
   end
 
 end
