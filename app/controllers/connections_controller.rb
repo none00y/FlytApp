@@ -8,6 +8,7 @@ class ConnectionsController < ApplicationController
   end
 
   def new
+    byebug
     @connection = Connection.new
   end
 

@@ -7,10 +7,12 @@ class ConnectionsService
   end
   
   def update_connection
+    @connection.calculate_distance_between_airfields
     @connection.update(@connection_params)
   end
 
   def create_connection
+    @connection.calculate_distance_between_airfields
     @connection.save
   end
 

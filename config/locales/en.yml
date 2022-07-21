@@ -44,6 +44,7 @@ en:
       email: "Email: %{email}"
       created_at: "Time of creation: %{created_at}"
       updated_at: "Last update: %{updated_at}"
+      user_type: "FIX ENUMS"
       edit: "Edit"
       delete: "Delete"
   airfields:
@@ -62,4 +63,12 @@ en:
     index:
       new: "New"
     connection_list:
+      connection_distance: "Distance: %{distance} km"
+      connection_id: "ID: %{id}"
+      origin: "From: %{name}"
+      destination: "to: %{name}"
+      edit: "Edit"
+      delete: "Remove"
+    form:
+      confirm: "Confirm"
       

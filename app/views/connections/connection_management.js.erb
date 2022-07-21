@@ -1,0 +1,8 @@
+<% case local_assigns[:action] %>
+  <% when "list" %>
+    document.getElementById("connection-list").innerHTML = "<%= j render partial: "connections/connection_list", locals: {action: "list"} %>";
+  <% when "new" %>
+    document.getElementById("connection-form").innerHTML = "<%= j render partial: "connections/form", locals: {action: "new"} %>";
+  <% when "edit" %>
+    document.getElementById("connection-form").innerHTML = "<%= j render partial: "connections/form", locals: {action: "edit"} %>";
+<% end %>

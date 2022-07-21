@@ -2,9 +2,9 @@
   <% @connections.each do |connection| %>
   <div>
     <%= t(".connection_id", id: connection.id ) %>
-    <%= t(".connection_name", name: connection.name ) %>
-    <%= t(".connection_longitude", longitude: connection.longitude ) %>
-    <%= t(".connection_latitude", latitude: connection.latitude ) %>
+    <%= t(".origin", name: Airfield.find(connection.airfield_a_id).name ) %>
+    <%= t(".destination", name: Airfield.find(connection.airfield_b_id).name ) %>
+    <%= t(".connection_distance", distance: connection.distance.truncate(2) ) %>
     <%= button_to t(".edit"), edit_connection_path(connection), method: :get %>
     <%= button_to t(".delete"), connection_path(connection), method: :delete %>
   </div>
