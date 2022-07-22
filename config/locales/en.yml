@@ -40,6 +40,7 @@ en:
       users: "Users"
       connections: "Connections"
       airplanes: "Airplanes"
+      passengers: "Passengers"
   users:
     user_list:
       id: "ID: %{id}"
@@ -76,16 +77,44 @@ en:
       airplane_passenger_capacity: "Max passenger count: %{passenger_capacity}"
       edit: "Edit"
       delete: "Delete"
+      show: "Show"
+    show:
+      airplane_id: "ID: %{id}"
+      airplane_connection: "%{description}"
+      airplane_identifier: "Identifier: %{identifier}"
+      airplane_flight_speed: "Cruise speed: %{flight_speed} km/s"
+      airplane_departure_day: "Departure day: %{departure_day}"
+      airplane_departure_time: "Departure time: %{departure_time}"
+      airplane_state: "State: %{state}"
+      airplane_passenger_capacity: "Max passenger count: %{passenger_capacity}"
+      edit: "Edit"
+      delete: "Delete"
   connections:
     index:
       new: "New"
     connection_list:
+      airplane_count: "Airplane count: %{count}"
       connection_distance: "Distance: %{distance} km"
       connection_id: "ID: %{id}"
       origin: "From: %{name}"
       destination: "to: %{name}"
       edit: "Edit"
       delete: "Remove"
+      show: "More information"
     form:
       confirm: "Confirm"
-      
+    show:
+      airplane_list: "Airplane list"
+  passengers:
+    index:
+      new: "New"
+    passenger_list:
+      passenger_first_name: "%{first_name}"
+      passenger_last_name: "%{last_name}"
+      edit: "Edit"
+      delete: "Remove"
+    form:
+      confirm: "Confirm"
+    show:
+      airplane_list: "Airplane list"
+            

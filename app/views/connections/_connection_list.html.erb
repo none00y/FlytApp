@@ -4,6 +4,8 @@
     <%= t(".connection_id", id: connection.id ) %>
     <%= connection.description %>
     <%= t(".connection_distance", distance: connection.distance.truncate(2) ) %>
+    <%= t(".airplane_count", count: connection.airplanes.size ) %>
+    <%= button_to t(".show"), connection_path(connection), method: :get %>    
     <%= button_to t(".edit"), edit_connection_path(connection), method: :get %>
     <%= button_to t(".delete"), connection_path(connection), method: :delete %>
   </div>

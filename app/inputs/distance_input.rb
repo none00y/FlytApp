@@ -1,6 +1,7 @@
 class DistanceInput < SimpleForm::Inputs::Base
-  def input(params)
+  def input
     byebug
+    # reference for the future
     params
   end
 end

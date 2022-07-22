@@ -3,15 +3,15 @@
   <% @connection ||= Connection.new %>
   <%= @connection.errors.inspect %>
   <%= simple_form_for @connection, url: connections_path(@connection), remote: true do |form| %>
-    <%= form.input :airfield_a_id %>
-    <%= form.input :airfield_b_id %>  
+    <%= form.association :airfield_a, label_method: :name  %>
+    <%= form.association :airfield_b, label_method: :name %>  
     <%= form.submit t(".confirm") %>  
   <% end %>
 <% when "edit" %>
   <%= @connection.errors.inspect %>
   <%= simple_form_for @connection, remote: true do |form| %>
-    <%= form.input :airfield_a_id %>
-    <%= form.input :airfield_b_id %>  
+    <%= form.association :airfield_a, label_method: :name  %>
+    <%= form.association :airfield_b, label_method: :name %>  
     <%= form.submit t(".confirm") %>  
   <% end %>
 <% end %>

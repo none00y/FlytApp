@@ -1,3 +1,3 @@
 <p>Airplane list</p>
 <%= button_to t(".new"), new_airplane_path, method: :get %>
-<%= render partial: "airplane_list" %>
+<%= render partial: "airplane_list", locals: {action: "list" } %>

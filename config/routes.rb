@@ -13,9 +13,9 @@ Rails.application.routes.draw do
   end
 
   resources :airplanes do
-    resources :passengers do
-      
-    end
+  end
+
+  resources :passengers do
   end
 
   devise_for :users, controllers: {
@@ -25,15 +25,15 @@ Rails.application.routes.draw do
   }
   unauthenticated :user do
     devise_scope :user do
-      root to: 'devise/sessions#new' 
+      root to: 'devise/sessions#new'
     end
   end
-  authenticated :user, ->(user){ user.basic_user? } do
+  authenticated :user, ->(user) { user.basic_user? } do
     devise_scope :user do
       root to: 'users#index', as: :basic_user_root
     end
   end
-  authenticated :user, ->(user){ user.admin? } do
+  authenticated :user, ->(user) { user.admin? } do
     devise_scope :user do
       root to: 'users#index', as: :admin_root
     end

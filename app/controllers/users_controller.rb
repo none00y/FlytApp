@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @users = User.all
     puts 'Ruby Version: ' + RUBY_VERSION
     respond_to do |format|
-      format.js { render 'users/user_management.js.erb', layout: false, locals: { action: "list" } }
+      format.js { render 'users/user_management.js.erb', layout: false, locals: { action: 'list' } }
     end
   end
 
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       respond_to do |format|
-        format.js { render "users/user_management.js.erb", layout: false, locals: { action: "new" }}
+        format.js { render 'users/user_management.js.erb', layout: false, locals: { action: 'new' } }
       end
     end
   end
@@ -33,12 +33,12 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    user_service = UsersService.new(user_params,@user)
+    user_service = UsersService.new(user_params, @user)
     if user_service.update_user
       redirect_to users_path
     else
       respond_to do |format|
-        format.js { render "users/user_management.js.erb", layout: false, locals: { action: "edit" }}
+        format.js { render 'users/user_management.js.erb', layout: false, locals: { action: 'edit' } }
       end
     end
   end
@@ -49,11 +49,10 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def show
-  end
+  def show; end
 
   def user_params
-    params.require(:user).permit(:email,:password,:user_type)
+    params.require(:user).permit(:email, :password, :user_type)
   end
 
 end

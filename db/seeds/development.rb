@@ -1,12 +1,13 @@
+2.times { FactoryBot.create(:user, user_type: User.get_user_types[:admin]) }
 10.times { FactoryBot.create(:airfield) }
-
-2.times { FactoryBot.create(:user,user_type: User.get_user_types[:admin])}
 
 airfield_ids = Airfield.all.pluck(:id)
 
-airfield_ids.each { |i|
-  airfield_ids.reject { |id| id == i }.sample
-  connection = FactoryBot.create( :connection, airfield_a_id: i, 
-  airfield_b_id: airfield_ids.reject { |id| id == i }.sample )
-}
-50.times { FactoryBot.create(:airplane, connection: Connection.all.sample) }
+airfield_ids.each do |i|
+  other_airfields = airfield_ids.reject { |id| id == i }.sample(3)
+  other_airfields.each do |other_airfield|
+    FactoryBot.create(:connection, airfield_a_id: i, airfield_b_id: other_airfield)
+  end
+end
+200.times { FactoryBot.create(:airplane, connection: Connection.all.sample) }
+100.times { FactoryBot.create(:passenger) }
