@@ -49,4 +49,16 @@ class Airplane < ApplicationRecord
   def self.get_departure_days
     DEPARTURE_DAYS
   end
+
+  def get_percentage_of_distance_travelled 
+    distance_travelled = percentage_of_distance_travelled
+    if state == "returning_to_origin"
+      distance_travelled = 100 - distance_travelled
+    end
+    distance_travelled.floor(2)
+  end
+
+  def get_proper_departure_time
+    departure_time.strftime("%R %Z")
+  end
 end

@@ -5,7 +5,7 @@ class CreateAirplanes < ActiveRecord::Migration[6.0]
       t.integer :state
       t.float :flight_speed
       t.integer :departure_day
-      t.integer :departure_time
+      t.time :departure_time
       t.float :percentage_of_distance_travelled
       t.integer :passenger_capacity
       t.belongs_to :connection

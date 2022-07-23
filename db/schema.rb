@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2022_07_21_045956) do
     t.integer "state"
     t.float "flight_speed"
     t.integer "departure_day"
-    t.integer "departure_time"
+    t.time "departure_time"
     t.float "percentage_of_distance_travelled"
     t.integer "passenger_capacity"
     t.bigint "connection_id"
