@@ -56,12 +56,25 @@ en:
     form:
       confirm: "Confirm"
     airfield_list:
+      incoming_connections_count: "Incoming connections: %{count}"
+      outgoing_connections_count: "Outgoing connections: %{count}"
       airfield_id: "ID: %{id}"
       airfield_name: "Name: %{name}"
       airfield_longitude: "%{longitude} N"
       airfield_latitude: "%{latitude} E"
       edit: "Edit"
       delete: "Delete"
+      show: "Show"
+    show:
+      incoming_connections: "Incoming connections"
+      outgoing_connections: "Outgoing connections"
+      airfield_id: "ID: %{id}"
+      airfield_name: "Name: %{name}"
+      airfield_longitude: "%{longitude} N"
+      airfield_latitude: "%{latitude} E"
+      edit: "Edit"
+      delete: "Delete"
+      show: "Show"
   airplanes:
     index: 
       new: "New"
@@ -69,24 +82,26 @@ en:
       confirm: "Confirm"
     airplane_list:
       airplane_id: "ID: %{id}"
+      distance_travelled_percentage: "Flight completed in: %{percentage}%"      
       airplane_identifier: "Identifier: %{identifier}"
-      airplane_flight_speed: "Cruise speed: %{flight_speed} km/s"
+      airplane_flight_speed: "Cruise speed: %{flight_speed} km/h"
       airplane_departure_day: "Departure day: %{departure_day}"
       airplane_departure_time: "Departure time: %{departure_time}"
       airplane_state: "State: %{state}"
-      airplane_passenger_capacity: "Max passenger count: %{passenger_capacity}"
+      airplane_passenger_capacity: "Passenger count: %{passenger_count}/%{passenger_capacity}"
       edit: "Edit"
       delete: "Delete"
       show: "Show"
     show:
       airplane_id: "ID: %{id}"
+      distance_travelled_percentage: "Flight completed in: %{percentage}%"
       airplane_connection: "%{description}"
       airplane_identifier: "Identifier: %{identifier}"
-      airplane_flight_speed: "Cruise speed: %{flight_speed} km/s"
+      airplane_flight_speed: "Cruise speed: %{flight_speed} km/h"
       airplane_departure_day: "Departure day: %{departure_day}"
       airplane_departure_time: "Departure time: %{departure_time}"
       airplane_state: "State: %{state}"
-      airplane_passenger_capacity: "Max passenger count: %{passenger_capacity}"
+      airplane_passenger_capacity: "Passenger count: %{passenger_count}/%{passenger_capacity}"
       edit: "Edit"
       delete: "Delete"
   connections:
@@ -104,7 +119,8 @@ en:
     form:
       confirm: "Confirm"
     show:
-      airplane_list: "Airplane list"
+      airplane_list: "Airplane list:"
+      airplane_count: "Total airplanes flying on this route:%{count}"
   passengers:
     index:
       new: "New"

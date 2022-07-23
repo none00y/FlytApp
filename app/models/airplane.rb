@@ -31,9 +31,8 @@ class Airplane < ApplicationRecord
   enum state: {
     awaiting: 0,
     boarding: 1,
-    unborading: 4,
-    moving_to_destination: 2,
-    returning_to_origin: 3
+    unborading: 3,
+    moving_to_destination: 2
   }
 
   STATES = states.to_h { |k, _v| [k.to_sym, k] }.freeze
@@ -50,15 +49,17 @@ class Airplane < ApplicationRecord
     DEPARTURE_DAYS
   end
 
-  def get_percentage_of_distance_travelled 
+  def get_percentage_of_distance_travelled
     distance_travelled = percentage_of_distance_travelled
-    if state == "returning_to_origin"
-      distance_travelled = 100 - distance_travelled
-    end
+    distance_travelled = 100 - distance_travelled if state == Airplane.get_states[:returning_to_origin]
     distance_travelled.floor(2)
   end
 
   def get_proper_departure_time
-    departure_time.strftime("%R %Z")
+    departure_time.strftime('%R %Z')
+  end
+
+  def passenger_count
+    passengers.size
   end
 end

@@ -1,3 +1,3 @@
 <p>Connection list</p>
 <%= button_to t(".new"), new_connection_path, method: :get %>
-<%= render partial: "connection_list" %>
+<%= render partial: "connection_list", locals: {action: "list"} %>

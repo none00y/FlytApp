@@ -1,0 +1,10 @@
+<%= t(".airfield_id", id: @airfield.id ) %>
+<%= t(".airfield_name", name: @airfield.name ) %>
+<%= t(".airfield_longitude", longitude: @airfield.longitude ) %>
+<%= t(".airfield_latitude", latitude: @airfield.latitude ) %>
+<%= t(".incoming_connections") %>
+<% @connections = @incoming_connections %>
+<%= render partial: "connections/connection_list", locals: { action: "list_airfields" } %>
+<%= t(".outgoing_connections") %>
+<% @connections = @outgoing_connections %>
+<%= render partial: "connections/connection_list", locals: { action: "list_airfields" } %>

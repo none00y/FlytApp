@@ -1,13 +1,32 @@
-<div id="connection-list">  
-  <% @connections.each do |connection| %>
-  <div>
-    <%= t(".connection_id", id: connection.id ) %>
-    <%= connection.description %>
-    <%= t(".connection_distance", distance: connection.distance.truncate(2) ) %>
-    <%= t(".airplane_count", count: connection.airplanes.size ) %>
-    <%= button_to t(".show"), connection_path(connection), method: :get %>    
-    <%= button_to t(".edit"), edit_connection_path(connection), method: :get %>
-    <%= button_to t(".delete"), connection_path(connection), method: :delete %>
+<% case local_assigns[:action] %>
+<% when "list_airfields" %>
+  <div id="connection-list">  
+    <% @connections.each do |connection| %>
+    <div>
+      <%= t(".connection_id", id: connection.id ) %>
+      <%= connection.description %>
+      <%= t(".connection_distance", distance: connection.distance.truncate(2) ) %>
+      <%= t(".airplane_count", count: connection.airplanes.size ) %>
+
+      <%= button_to t(".show"), connection_path(connection), method: :get %>    
+      <%= button_to t(".edit"), edit_connection_path(connection), method: :get %>
+      <%= button_to t(".delete"), connection_path(connection), method: :delete %>
+    </div>
+    <% end %>
   </div>
-  <% end %>
-</div>
+<% when "list" %>
+  <div id="connection-list">  
+    <% @connections.each do |connection| %>
+    <div>
+      <%= t(".connection_id", id: connection.id ) %>
+      <%= connection.description %>
+      <%= t(".connection_distance", distance: connection.distance.truncate(2) ) %>
+      <%= t(".airplane_count", count: connection.airplanes.size ) %>
+      
+      <%= button_to t(".show"), connection_path(connection), method: :get %>    
+      <%= button_to t(".edit"), edit_connection_path(connection), method: :get %>
+      <%= button_to t(".delete"), connection_path(connection), method: :delete %>
+    </div>
+    <% end %>
+  </div>
+<% end %>

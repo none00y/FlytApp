@@ -1,4 +1,6 @@
 class Airfield < ApplicationRecord
+  has_many :outgoing_connections, class_name: 'Connection', foreign_key: :airfield_a_id, dependent: :destroy
+  has_many :incoming_connections, class_name: 'Connection', foreign_key: :airfield_b_id, dependent: :destroy
 
   validates_presence_of :longitude
   validates_presence_of :latitude
@@ -26,5 +28,4 @@ class Airfield < ApplicationRecord
 
     errors.add(:airfield_plane_capacity, 'Should be a positive number!')
   end
-
 end

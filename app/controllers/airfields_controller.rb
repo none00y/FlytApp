@@ -3,7 +3,11 @@ class AirfieldsController < ApplicationController
     @airfields = Airfield.all.order(:name)
   end
 
-  def show; end
+  def show
+    @airfield = Airfield.find(params[:id])
+    @incoming_connections = @airfield.incoming_connections
+    @outgoing_connections = @airfield.outgoing_connections
+  end
 
   def new
     @airfield = Airfield.new
