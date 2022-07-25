@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_21_045956) do
+ActiveRecord::Schema.define(version: 2022_07_25_133739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2022_07_21_045956) do
     t.float "percentage_of_distance_travelled"
     t.integer "passenger_capacity"
     t.bigint "connection_id"
+    t.boolean "direction"
     t.index ["connection_id"], name: "index_airplanes_on_connection_id"
   end
 

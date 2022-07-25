@@ -9,7 +9,7 @@ class Airplane < ApplicationRecord
   validate :passenger_capacity_is_positive_number
   validate :flight_speed_is_positive_number
   validate :identifier_has_proper_format
-
+  
   def passenger_capacity_is_positive_number
     return if passenger_capacity.positive?
 
@@ -32,7 +32,7 @@ class Airplane < ApplicationRecord
     awaiting: 0,
     boarding: 1,
     unborading: 3,
-    moving_to_destination: 2
+    flying: 2
   }
 
   STATES = states.to_h { |k, _v| [k.to_sym, k] }.freeze
@@ -41,7 +41,7 @@ class Airplane < ApplicationRecord
     STATES
   end
 
-  enum departure_day: [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday]
+  enum departure_day: [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
 
   DEPARTURE_DAYS = departure_days.to_h { |k, _v| [k.to_sym, k] }.freeze
 
@@ -49,10 +49,16 @@ class Airplane < ApplicationRecord
     DEPARTURE_DAYS
   end
 
+  enum direction: [:to_destination, :returning]
+
+  DIRECTIONS = directions.to_h {|k,_v| [k.to_sym,k] }.freeze
+
+  def self.get_directions
+    DIRECTIONS
+  end
+
   def get_percentage_of_distance_travelled
-    distance_travelled = percentage_of_distance_travelled
-    distance_travelled = 100 - distance_travelled if state == Airplane.get_states[:returning_to_origin]
-    distance_travelled.floor(2)
+    percentage_of_distance_travelled.floor(2)
   end
 
   def get_proper_departure_time
@@ -61,5 +67,22 @@ class Airplane < ApplicationRecord
 
   def passenger_count
     passengers.size
+  end
+
+  def estimated_time_of_travel
+    (connection.distance/flight_speed).hours
+  end
+  
+  def departure_date
+    if state != Airplane.get_states[:flying]
+      time = Time.now.utc.end_of_week(departure_day.to_sym)
+    else 
+      time = Time.now.utc.beginning_of_week(departure_day.to_sym)
+    end
+    time + departure_time.seconds_since_midnight 
+  end
+
+  def estimated_arrival_time
+    departure_date + estimated_time_of_travel
   end
 end

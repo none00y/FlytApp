@@ -1,0 +1,6 @@
+---
+:schedule:
+  AirplaneStatusUpdateJob:
+    cron: '0 * * * * *'
+    queue: scheduler
+    enabled: true

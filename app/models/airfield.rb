@@ -28,4 +28,55 @@ class Airfield < ApplicationRecord
 
     errors.add(:airfield_plane_capacity, 'Should be a positive number!')
   end
+
+  def incoming_airplanes
+    airplanes = []
+
+    incoming_connections.each do |connection|
+     airplanes = airplanes + connection.airplanes.where(direction: Airplane.get_directions[:to_destination])
+    end
+
+    outgoing_connections.each do |connection|
+      airplanes = airplanes + connection.airplanes.where(direction: Airplane.get_directions[:to_destination])
+    end
+
+    airplanes
+  end
+  
+  def outgoing_airplanes
+    airplanes = []
+
+    outgoing_connections.each do |connection|
+      airplanes = airplanes + connection.airplanes.where(direction: Airplane.get_directions[:to_destination])
+    end
+
+    incoming_connections.each do |connection|
+      airplanes = airplanes + connection.airplanes.where(direction: Airplane.get_directions[:returning])
+    end
+
+    airplanes
+  end
+
+  def airplanes_at_time(datetime,precision = 1.minutes)
+    airplanes = []
+
+    incoming_airplanes.each do |airplane|
+      if airplane.estimated_arrival_time < datetime + precision
+        airplanes << airplane 
+      end
+    end
+
+    outgoing_airplanes.each do |airplane|
+      if airplane.departure_date < datetime + precision
+        airplanes << airplane 
+      end
+    end
+    
+    airplanes
+  end
+
+  def can_add_airplane(airplane)
+   airplanes_at_time(airplane.departure_date - 7.days) < airfield_plane_capacity &&
+    airplanes_at_time(airplane.departure_date) < airfield_plane_capacity 
+  end
 end

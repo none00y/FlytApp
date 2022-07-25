@@ -4,17 +4,17 @@ FactoryBot.define do
     percentage_of_distance_travelled { 0.0 }
     passenger_capacity { rand(70..200) }
     flight_speed { rand(700..950) }
-
+    direction { :to_destination }
     departure_day { Airplane.get_departure_days.keys.sample }
-    departure_time { Faker::Time.between(from: Time.now + 60 * 10, to: Time.now + 3600 * 2) }
+    departure_time { Faker::Time.between(from: Time.now.utc + 6.minutes, to: Time.now.utc + 1.hour) }
 
     state { :awaiting }
 
     trait :boarding do
       state { :boarding }
     end
-    trait :moving_to_destination do
-      state { :moving_to_destination }
+    trait :flying do
+      state { :flying }
     end
 
     connection { :connection }
