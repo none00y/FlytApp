@@ -1,8 +1,8 @@
 class AirplaneStatusUpdateJob < ApplicationJob
   # change depending on how frequently the task will be performed
-  REFRESH_TIME = 1.minute
+  REFRESH_TIME = 1.minute.freeze
   CURRENT_TIME = Time.now.utc.freeze
-  BOARDING_DELAY = 5.minutes  
+  BOARDING_DELAY = 5.minutes.freeze  
 
   def perform
     start_boarding_airplanes
@@ -15,11 +15,11 @@ class AirplaneStatusUpdateJob < ApplicationJob
     unboarding_airplanes = Airplane.where(state: Airplane.states[:unboarding])
 
     unboarding_airplanes.each do |airplane|
-      airplane.passengers.order("RANDOM()").limit(30).airplane_id = nil
-      if airplane.passengers.size == 0
-        airplane.state = Airplane.get_states[:awaiting]
-        airplane.update
+      airplane.passengers.order("RANDOM()").limit(30).update_all(airplane_id: nil)
+      if airplane.passengers.size == 0 
+        airplane.update(state: Airplane.get_states[:awaiting])
       end
+      puts "Unboarding #{airplane.identifier}"
     end
   end
 
@@ -31,10 +31,10 @@ class AirplaneStatusUpdateJob < ApplicationJob
 
       unless passengers.size > airplane.passenger_capacity - airplane.passengers.size
         passengers.each do |passenger|
-          passenger.airplane_id = airplane.id
           passenger.update(airplane_id: airplane.id)
         end
       end
+      puts "Boarding #{airplane.identifier} #{airplane.passengers.size}/#{airplane.passenger_capacity}, try adding #{passengers.size}"
     end
 
     airplanes_to_lift_off = boarding_airplanes.where("(departure_time::time >= :start_time) AND (departure_time::time < :end_time)",
@@ -56,8 +56,8 @@ class AirplaneStatusUpdateJob < ApplicationJob
       if airplane.state != Airplane.get_states[:awaiting]
         puts "STATE ERROR in Airplane #{airplane.id}: is: #{airplane.state} should be: #{Airplane.get_states[:boarding]}"
       end
-      airplane.state = Airplane.get_states[:boarding]
-      airplane.update
+      airplane.update(state: Airplane.get_states[:boarding])
+      puts "Strat boarding #{airplane.identifier}"
     end
   end
   
@@ -65,11 +65,13 @@ class AirplaneStatusUpdateJob < ApplicationJob
     flying_airplanes = Airplane.where(state: Airplane.get_states[:flying])
 
     flying_airplanes.each do |airplane|
-      airplane.percentage_of_distance_travelled += airplane.flight_speed*REFRESH_TIME/1.hour/airplane.connection.distance_travelled * 100
+      airplane.percentage_of_distance_travelled += airplane.flight_speed*REFRESH_TIME/1.hour/airplane.connection.distance * 100
       if airplane.percentage_of_distance_travelled > 100
         airplane.state = Airplane.get_states[:unboarding]
+        airplane.percentage_of_distance_travelled = 0
       end
-      airplane.update
+      airplane.save
+      puts "Moving #{airplane.identifier}"
     end
   end
 end
