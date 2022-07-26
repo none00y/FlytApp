@@ -8,9 +8,9 @@
       <%= t(".airplane_passenger_capacity", passenger_capacity: airplane.passenger_capacity, passenger_count: airplane.passenger_count) %>
       <%= t(".distance_travelled_percentage", percentage: airplane.get_percentage_of_distance_travelled ) unless airplane.percentage_of_distance_travelled == 0 %> 
 
-      <%= button_to t(".edit"), edit_airplane_path(airplane), method: :get %>
-      <%= button_to t(".show"), airplane_path(airplane), method: :get %>      
-      <%= button_to t(".delete"), airplane_path(airplane), method: :delete %>
+      <%= button_to t(".edit"), edit_airplane_path(airplane), method: :get if can? :edit, airplane %>
+      <%= button_to t(".show"), airplane_path(airplane), method: :get if can? :show, airplane %>      
+      <%= button_to t(".delete"), airplane_path(airplane), method: :delete if can? :destroy, airplane %>
     </div>
     <% end %>
   <% when "list_connection" %>
@@ -24,9 +24,9 @@
       <%= t(".airplane_state", state: airplane.state) %>
       <%= t(".airplane_passenger_capacity", passenger_capacity: airplane.passenger_capacity, passenger_count: airplane.passenger_count) %>
 
-      <%= button_to t(".edit"), edit_airplane_path(airplane), method: :get %>
-      <%= button_to t(".show"), airplane_path(airplane), method: :get %>   
-      <%= button_to t(".delete"), airplane_path(airplane), method: :delete %>
+      <%= button_to t(".edit"), edit_airplane_path(airplane), method: :get if can? :edit, airplane %>
+      <%= button_to t(".show"), airplane_path(airplane), method: :get if can? :show, airplane %>      
+      <%= button_to t(".delete"), airplane_path(airplane), method: :delete if can? :delete, airplane %>
     </div>
     <% end %>
   <% end %>

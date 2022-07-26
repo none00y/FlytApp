@@ -1,6 +1,7 @@
-<p>UserList</p>
-<%= button_to "Test JS", test_users_path, remote: true, method: :patch %>
-<%= button_to "new", new_user_path, method: :get %>
+<p>
+  <%= t(".user_list") %> 
+</p>
+<%= button_to "new", new_user_path, method: :get if can? :create, :users %>
 <div id = "user-list">
   <%= render partial: "user_list" %>  
 </div>  

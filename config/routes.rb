@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    passwords: 'users/passwords',
+    confirmations: 'users/confirmations',
+  }
   resources :users do
-    collection do
-      patch 'test'
-    end
   end
 
   resources :airfields do
@@ -18,19 +21,15 @@ Rails.application.routes.draw do
   resources :passengers do
   end
 
-  devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    passwords: 'users/passwords',
-    confirmations: 'users/confirmations'
-  }
+
   unauthenticated :user do
     devise_scope :user do
-      root to: 'devise/sessions#new'
+      root to: 'users/registrations#new'
     end
   end
   authenticated :user, ->(user) { user.basic_user? } do
     devise_scope :user do
-      root to: 'users#index', as: :basic_user_root
+      root to: 'airfields#index', as: :basic_user_root
     end
   end
   authenticated :user, ->(user) { user.admin? } do

@@ -1,3 +1,5 @@
-<p>Passenger list</p>
-<%= button_to t(".new"), new_passenger_path, method: :get %>
+<p>
+  <%= t(".passenger_list") %>
+</p>
+<%= button_to t(".new"), new_passenger_path, method: :get if can? :create, :users %>
 <%= render partial: "passenger_list" %>

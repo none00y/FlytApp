@@ -5,7 +5,7 @@
   <%= t(".id",id: user.id) %>
   <%= t(".created_at",created_at: user.created_at) %>
   <%= t(".updated_at",updated_at: user.updated_at) %>
-  <%= button_to t(".edit"), edit_user_path(user), method: :get %>
-  <%= button_to t(".delete"), user_path(user), method: :delete %>
+  <%= button_to t(".edit"), edit_user_path(user), method: :get if can? :edit, user %>
+  <%= button_to t(".delete"), user_path(user), method: :delete if can? :delete, user %>
 </div>
 <% end %>

@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attribute :user_type, :integer, default: -> { :basic_user }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -15,5 +16,9 @@ class User < ApplicationRecord
 
   def self.get_user_types
     USER_TYPES
+  end
+
+  def ability
+    @ability ||= Ability.new(self)
   end
 end

@@ -1,4 +1,6 @@
 class ConnectionsController < ApplicationController
+  load_and_authorize_resource
+  
   def index
     @connections = Connection.left_joins(:airplanes).group(:id).order('COUNT(airplanes.id) DESC')
   end

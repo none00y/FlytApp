@@ -1,14 +1,8 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @users = User.all
-  end
-
-  def test
-    @users = User.all
-    puts 'Ruby Version: ' + RUBY_VERSION
-    respond_to do |format|
-      format.js { render 'users/user_management.js.erb', layout: false, locals: { action: 'list' } }
-    end
   end
 
   def new
@@ -52,7 +46,7 @@ class UsersController < ApplicationController
   def show; end
 
   def user_params
-    params.require(:user).permit(:email, :password, :user_type)
+    params.require(:user).permit(:email, :password, :user_type, :password_confirmation)
   end
 
 end

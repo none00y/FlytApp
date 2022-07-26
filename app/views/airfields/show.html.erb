@@ -2,9 +2,15 @@
 <%= t(".airfield_name", name: @airfield.name ) %>
 <%= t(".airfield_longitude", longitude: @airfield.longitude ) %>
 <%= t(".airfield_latitude", latitude: @airfield.latitude ) %>
+
+<%= button_to t(".edit"), edit_airfield_path(@airfield), method: :get  if can? :edit, @airfield %> 
+<%= button_to t(".delete"), airfield_path(@airfield), method: :delete if can? :delete, @airfield %>
+
 <%= t(".incoming_connections") %>
 <% @connections = @incoming_connections %>
 <%= render partial: "connections/connection_list", locals: { action: "list_airfields" } %>
+
 <%= t(".outgoing_connections") %>
 <% @connections = @outgoing_connections %>
 <%= render partial: "connections/connection_list", locals: { action: "list_airfields" } %>
+

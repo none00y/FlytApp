@@ -8,9 +8,9 @@
     <%= t(".incoming_connections_count", count: airfield.incoming_connections.size ) %>
     <%= t(".outgoing_connections_count", count: airfield.outgoing_connections.size ) %>
 
-    <%= button_to t(".edit"), edit_airfield_path(airfield), method: :get %>
-    <%= button_to t(".show"), airfield_path(airfield), method: :get %>    
-    <%= button_to t(".delete"), airfield_path(airfield), method: :delete %>
+    <%= button_to t(".edit"), edit_airfield_path(airfield), method: :get  if can? :edit, airfield %>
+    <%= button_to t(".show"), airfield_path(airfield), method: :get if can? :show, airfield %>    
+    <%= button_to t(".delete"), airfield_path(airfield), method: :delete if can? :delete, airfield %>
   </div>
   <% end %>
 </div>

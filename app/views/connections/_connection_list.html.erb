@@ -8,9 +8,9 @@
       <%= t(".connection_distance", distance: connection.distance.truncate(2) ) %>
       <%= t(".airplane_count", count: connection.airplanes.size ) %>
 
-      <%= button_to t(".show"), connection_path(connection), method: :get %>    
-      <%= button_to t(".edit"), edit_connection_path(connection), method: :get %>
-      <%= button_to t(".delete"), connection_path(connection), method: :delete %>
+      <%= button_to t(".show"), connection_path(connection), method: :get if can? :show, connection %>    
+      <%= button_to t(".edit"), edit_connection_path(connection), method: :get if can? :edit, connection %>
+      <%= button_to t(".delete"), connection_path(connection), method: :delete if can? :delete, connection %>
     </div>
     <% end %>
   </div>
@@ -23,9 +23,9 @@
       <%= t(".connection_distance", distance: connection.distance.truncate(2) ) %>
       <%= t(".airplane_count", count: connection.airplanes.size ) %>
       
-      <%= button_to t(".show"), connection_path(connection), method: :get %>    
-      <%= button_to t(".edit"), edit_connection_path(connection), method: :get %>
-      <%= button_to t(".delete"), connection_path(connection), method: :delete %>
+      <%= button_to t(".show"), connection_path(connection), method: :get if can? :show, connection %>    
+      <%= button_to t(".edit"), edit_connection_path(connection), method: :get if can? :edit, connection %>
+      <%= button_to t(".delete"), connection_path(connection), method: :delete if can? :delete, connection %>
     </div>
     <% end %>
   </div>

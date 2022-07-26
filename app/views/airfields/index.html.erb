@@ -1,3 +1,5 @@
-<p>Airfield list</p>
-<%= button_to t(".new"), new_airfield_path, method: :get %>
+<p>
+  <%= t(".airfield_list") %>
+</p>
+<%= button_to t(".new"), new_airfield_path, method: :get if can? :create, :airfields %>
 <%= render partial: "airfield_list" %>
