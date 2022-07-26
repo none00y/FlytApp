@@ -33,11 +33,11 @@ class Airfield < ApplicationRecord
     airplanes = []
 
     incoming_connections.each do |connection|
-     airplanes = airplanes + connection.airplanes.where(direction: Airplane.get_directions[:to_destination])
+     airplanes = airplanes + connection.airplanes.where(returning == false)
     end
 
     outgoing_connections.each do |connection|
-      airplanes = airplanes + connection.airplanes.where(direction: Airplane.get_directions[:to_destination])
+      airplanes = airplanes + connection.airplanes.where(returning == true)
     end
 
     airplanes
@@ -47,11 +47,11 @@ class Airfield < ApplicationRecord
     airplanes = []
 
     outgoing_connections.each do |connection|
-      airplanes = airplanes + connection.airplanes.where(direction: Airplane.get_directions[:to_destination])
+      airplanes = airplanes + connection.airplanes.where(returning == false)
     end
 
     incoming_connections.each do |connection|
-      airplanes = airplanes + connection.airplanes.where(direction: Airplane.get_directions[:returning])
+      airplanes = airplanes + connection.airplanes.where(returning == true)
     end
 
     airplanes

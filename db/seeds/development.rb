@@ -9,5 +9,5 @@ airfield_ids.each do |i|
     FactoryBot.create(:connection, airfield_a_id: i, airfield_b_id: other_airfield)
   end
 end
-200.times { FactoryBot.create(:airplane, connection: Connection.all.sample) }
-100.times { FactoryBot.create(:passenger) }
+50.times { FactoryBot.create(:airplane, connection: Connection.all.sample) }
+5000.times { FactoryBot.create(:passenger) }

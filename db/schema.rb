@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2022_07_25_133739) do
     t.float "percentage_of_distance_travelled"
     t.integer "passenger_capacity"
     t.bigint "connection_id"
-    t.boolean "direction"
+    t.boolean "returning"
     t.index ["connection_id"], name: "index_airplanes_on_connection_id"
   end
 

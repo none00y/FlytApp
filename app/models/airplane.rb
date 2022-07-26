@@ -49,14 +49,6 @@ class Airplane < ApplicationRecord
     DEPARTURE_DAYS
   end
 
-  enum direction: [:to_destination, :returning]
-
-  DIRECTIONS = directions.to_h {|k,_v| [k.to_sym,k] }.freeze
-
-  def self.get_directions
-    DIRECTIONS
-  end
-
   def get_percentage_of_distance_travelled
     percentage_of_distance_travelled.floor(2)
   end

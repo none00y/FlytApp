@@ -1,12 +1,13 @@
 class AirplaneStatusUpdateJob < ApplicationJob
   # change depending on how frequently the task will be performed
-  REFRESH_TIME = 1.minute.freeze
-  CURRENT_TIME = Time.now.utc.freeze
-  BOARDING_DELAY = 5.minutes.freeze  
+  REFRESH_TIME = 1.minute
+  @current_time = Time.now.utc
+  BOARDING_DELAY = 5.minutes  
 
   def perform
-    start_boarding_airplanes
+    @current_time = Time.now.utc
     board_airplanes
+    start_boarding_airplanes
     unboard_airplanes
     move_airplanes
   end
@@ -18,6 +19,8 @@ class AirplaneStatusUpdateJob < ApplicationJob
       airplane.passengers.order("RANDOM()").limit(30).update_all(airplane_id: nil)
       if airplane.passengers.size == 0 
         airplane.update(state: Airplane.get_states[:awaiting])
+        airplane.percentage_of_distance_travelled = 0
+        airplane.toggle(:returning)
       end
       puts "Unboarding #{airplane.identifier}"
     end
@@ -34,30 +37,27 @@ class AirplaneStatusUpdateJob < ApplicationJob
           passenger.update(airplane_id: airplane.id)
         end
       end
-      puts "Boarding #{airplane.identifier} #{airplane.passengers.size}/#{airplane.passenger_capacity}, try adding #{passengers.size}"
+      puts "Boarding #{airplane.identifier} #{airplane.passengers.size}/#{airplane.passenger_capacity}, tried adding #{passengers.size}"
     end
-
-    airplanes_to_lift_off = boarding_airplanes.where("(departure_time::time >= :start_time) AND (departure_time::time < :end_time)",
-    start_time: (CURRENT_TIME).strftime("%r"),
-    end_time:   (CURRENT_TIME + REFRESH_TIME).strftime("%r")
+    airplanes_to_lift_off = boarding_airplanes.where("(departure_time::time <= :start_time) AND (departure_day::integer = :day_of_week)",
+    day_of_week: (@current_time).wday,
+    start_time: (@current_time).strftime("%R"),
     )
 
     airplanes_to_lift_off.update_all(state: Airplane.get_states[:flying])
   end
 
   def start_boarding_airplanes
-    airplanes_waiting_to_board = Airplane.where("(departure_day::integer = :day_of_week) AND (departure_time::time >= :start_time) AND (departure_time::time < :end_time)",
-    day_of_week: (CURRENT_TIME + BOARDING_DELAY).wday,
-    start_time: (CURRENT_TIME + BOARDING_DELAY).strftime("%r"),
-    end_time:   (CURRENT_TIME + BOARDING_DELAY + REFRESH_TIME).strftime("%r")
+    puts (@current_time + BOARDING_DELAY).strftime("%R%Z")
+    puts (@current_time + BOARDING_DELAY + REFRESH_TIME).strftime("%R%Z")
+    airplanes_waiting_to_board = Airplane.where("(departure_day::integer = :day_of_week) AND ((departure_time::time >= :start_time) AND (departure_time::time < :end_time))",
+    day_of_week: (@current_time + BOARDING_DELAY).wday,
+    start_time: (@current_time + BOARDING_DELAY).strftime("%R%Z"),
+    end_time:   (@current_time + BOARDING_DELAY + REFRESH_TIME).strftime("%R%Z")
     )
-
     airplanes_waiting_to_board.each do |airplane|
-      if airplane.state != Airplane.get_states[:awaiting]
-        puts "STATE ERROR in Airplane #{airplane.id}: is: #{airplane.state} should be: #{Airplane.get_states[:boarding]}"
-      end
       airplane.update(state: Airplane.get_states[:boarding])
-      puts "Strat boarding #{airplane.identifier}"
+      puts "Start boarding #{airplane.identifier}"
     end
   end
   
