@@ -1,18 +1,16 @@
 <% case local_assigns[:action] %>
 <% when "new" %>
-  <%= @user.errors.inspect %>
   <%= simple_form_for @user, url: users_path(@user), remote: true do |form| %>
     <%= form.input :email %>
     <%= form.input :password %>
-    <%= form.input :user_type, collection: User.get_user_types %>
+    <%= form.input :user_type, collection: User.get_human_user_types %>
     <%= form.submit "Confirm" %>  
   <% end %>
 <% when "edit" %>
-  <%= @user.errors.inspect %>
   <%= simple_form_for @user, remote: true do |form| %>
     <%= form.input :email %>
     <%= form.input :password %>
-    <%= form.input :user_type, collection: User.get_user_types %>
+    <%= form.input :user_type, collection: User.get_human_user_types %>
     <%= form.submit "Confirm" %>  
   <% end %>    
 <% end %>

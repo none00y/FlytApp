@@ -1,14 +1,12 @@
 <% case local_assigns[:action] %>
 <% when "new" %>
   <% @passenger ||= Passenger.new %>
-  <%= @passenger.errors.inspect %>
   <%= simple_form_for @passenger, url: passengers_path(@passenger), remote: true do |form| %>
     <%= form.input :first_name %>
     <%= form.input :last_name %>  
     <%= form.submit t(".confirm") %>  
   <% end %>
 <% when "edit" %>
-  <%= @passenger.errors.inspect %>
   <%= simple_form_for @passenger, remote: true do |form| %>
     <%= form.input :first_name %>
     <%= form.input :last_name %>  

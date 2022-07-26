@@ -1,29 +1,27 @@
 <% case local_assigns[:action] %>
 <% when "new" %>
   <% @airplane ||= Airplane.new %>
-  <%= @airplane.errors.inspect %>
   <%= simple_form_for @airplane, url: airplanes_path(@airplane), remote: true do |form| %>
     <%= form.association :connection, label_method: :description, selected: params[:connection_id] %>
     <%= form.input :passenger_capacity, input_html: {value: form.object.passenger_capacity || 70 } %>
     <%= form.input :identifier %>
     <%= form.input :flight_speed %>
-    <%= form.input :departure_day, collection: Airplane.get_departure_days %>
+    <%= form.input :departure_day, collection: Airplane.get_human_departure_days %>
     <%= form.input :departure_time %>
     <%= form.input :percentage_of_distance_travelled %>   
-    <%= form.input :state, collection: Airplane.get_states %>       
+    <%= form.input :state, collection: Airplane.get_human_states %>       
     <%= form.submit t(".confirm") %>  
   <% end %>
 <% when "edit" %>
-  <%= @airplane.errors.inspect %>
   <%= simple_form_for @airplane, remote: true do |form| %>
     <%= form.association :connection, label_method: :description, selected: params[:connection_id] %>
     <%= form.input :passenger_capacity %>
     <%= form.input :identifier %>
     <%= form.input :flight_speed %>
-    <%= form.input :departure_day, collection: Airplane.get_departure_days %>
+    <%= form.input :departure_day, collection: Airplane.get_human_departure_days %>
     <%= form.input :departure_time %>
     <%= form.input :percentage_of_distance_travelled %>   
-    <%= form.input :state, collection: Airplane.get_states %>     
+    <%= form.input :state, collection: Airplane.get_human_states %>     
     <%= form.submit t(".confirm") %>  
   <% end %>
 <% end %>

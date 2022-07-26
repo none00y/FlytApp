@@ -13,11 +13,11 @@ class Airplane < ApplicationRecord
 
   def connection_not_full
     unless connection.airfield_a.can_add_airplane(self)
-      errors.add(:connection, "Can't accept additional plane at this time")
+      errors.add(:connection, I18n.t(".connection_full"))
     end
 
     unless connection.airfield_b.can_add_airplane(self)
-      errors.add(:connection, "Can't accept additional plane at this time")
+      errors.add(:connection, I18n.t(".connection_full"))
     end
 
   end
@@ -25,19 +25,19 @@ class Airplane < ApplicationRecord
   def passenger_capacity_is_positive_number
     return if passenger_capacity.positive?
 
-    errors.add(:passenger_capacity, 'Must be greater than 0')
+    errors.add(:passenger_capacity, I18n.t(".number_must_be_positive"))
   end
 
   def flight_speed_is_positive_number
     return if flight_speed.positive?
 
-    errors.add(:flight_speed, 'Must be greater than 0')
+    errors.add(:flight_speed, I18n.t(".number_must_be_positive"))
   end
 
   def identifier_has_proper_format
     return if identifier.blank? || identifier.match(/^[A-Z]-[A-Z]{4}|[A-Z,0-9]{1,3}-[A-Z]{3}|N[0-9]{1,5}[A-Z]{0,2}$/)
 
-    errors.add(:identifier, "Doesn't match known international registration patterns")
+    errors.add(:identifier, I18n.t(".it_is_not_even_faked_well"))
   end
 
   enum state: {
@@ -52,6 +52,10 @@ class Airplane < ApplicationRecord
   def self.get_states
     STATES
   end
+  
+  def self.get_human_states
+    STATES.to_h {|k,v|[Airplane.human_enum_name(:states,k),k]}
+  end
 
   enum departure_day: [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
 
@@ -59,6 +63,10 @@ class Airplane < ApplicationRecord
 
   def self.get_departure_days
     DEPARTURE_DAYS
+  end
+
+  def self.get_human_departure_days
+    DEPARTURE_DAYS.to_h {|k,v|[Airplane.human_enum_name(:departure_days,k),k]}
   end
 
   def get_percentage_of_distance_travelled

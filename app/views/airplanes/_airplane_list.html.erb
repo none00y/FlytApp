@@ -4,7 +4,8 @@
     <% @airplanes.each do |airplane| %>
     <div>
       <%= t(".airplane_identifier", identifier: airplane.identifier ) %>
-      <%= t(".airplane_state", state: airplane.state) %>
+
+      <%= t(".airplane_state", state: Airplane.get_human_states.invert[airplane.state.to_sym]) %>
       <%= t(".airplane_passenger_capacity", passenger_capacity: airplane.passenger_capacity, passenger_count: airplane.passenger_count) %>
       <%= t(".distance_travelled_percentage", percentage: airplane.get_percentage_of_distance_travelled ) unless airplane.percentage_of_distance_travelled == 0 %> 
 
@@ -19,9 +20,10 @@
       <%= t(".airplane_identifier", identifier: airplane.identifier ) %>
       <%= t(".airplane_flight_speed", flight_speed: airplane.flight_speed ) %>
       <%= t(".distance_travelled_percentage", percentage: airplane.get_percentage_of_distance_travelled ) unless airplane.percentage_of_distance_travelled == 0 %> 
-      <%= t(".airplane_departure_day", departure_day: airplane.departure_day) %>
+      <%= t(".airplane_departure_day", departure_day: Airplane.get_human_departure_days.invert[airplane.departure_day.to_sym]) %>
       <%= t(".airplane_departure_time", departure_time: airplane.get_proper_departure_time) %>
-      <%= t(".airplane_state", state: airplane.state) %>
+      <%= t(".airplane_state", state: Airplane.get_human_states.invert[airplane.state.to_sym]) %>
+      <%= t(".airplane_returning")  if airplane.returning?%>
       <%= t(".airplane_passenger_capacity", passenger_capacity: airplane.passenger_capacity, passenger_count: airplane.passenger_count) %>
 
       <%= button_to t(".edit"), edit_airplane_path(airplane), method: :get if can? :edit, airplane %>

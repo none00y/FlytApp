@@ -5,6 +5,7 @@
     <%= t(".airfield_name", name: airfield.name ) %>
     <%= t(".airfield_longitude", longitude: airfield.longitude ) %>
     <%= t(".airfield_latitude", latitude: airfield.latitude ) %>
+    <%= t(".current_plane_count", count: airfield.airplanes_at_time(Time.now.utc).size, capacity: airfield.airfield_plane_capacity ) %>
     <%= t(".incoming_connections_count", count: airfield.incoming_connections.size ) %>
     <%= t(".outgoing_connections_count", count: airfield.outgoing_connections.size ) %>
 

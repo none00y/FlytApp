@@ -1,5 +1,5 @@
 <p>
-  <%= t(".connections_list") %>
+  <%= t(".connection_list") %>
 </p>
 <%= button_to t(".new"), new_connection_path, method: :get if can? :create, :airplanes %>
 <%= render partial: "connection_list", locals: {action: "list"} %>

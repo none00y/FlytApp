@@ -1,7 +1,7 @@
 <% @users.each do |user| %>
 <div>
   <%= t(".email",email: user.email) %>
-  <%= t(".user_type",user_type: user.user_type) %>
+  <%= t(".user_type",user_type: User.get_human_user_types.invert[user.user_type.to_sym])  %>
   <%= t(".id",id: user.id) %>
   <%= t(".created_at",created_at: user.created_at) %>
   <%= t(".updated_at",updated_at: user.updated_at) %>

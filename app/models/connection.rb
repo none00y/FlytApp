@@ -15,27 +15,27 @@ class Connection < ApplicationRecord
   def connection_is_unique
     return if Connection.all.where(airfield_a_id: airfield_a_id).find_by(airfield_b_id: airfield_b_id).nil?
 
-    errors.add(:airfield_a_id, 'Connection already exists!')
-    errors.add(:airfield_b_id, 'Connection already exists!')
+    errors.add(:airfield_a_id, I18n.t(".connection_exists"))
+    errors.add(:airfield_b_id, I18n.t(".connection_exists"))
   end
 
   def airfield_a_id_exists
     return unless Airfield.find(airfield_a_id).nil?
 
-    errors.add(:airfield_a_id, 'Choose an exisiting airfield')
+    errors.add(:airfield_a_id, I18n.t(".airfield_not_found") )
   end
 
   def airfield_b_id_exists
     return unless Airfield.find(airfield_b_id).nil?
 
-    errors.add(:airfield_b_id, 'Choose an exisiting airfield')
+    errors.add(:airfield_b_id, I18n.t(".airfield_not_found"))
   end
 
   def airfields_are_uniqe
     return if airfield_a_id != airfield_b_id
 
-    errors.add(:airfield_a_id, "Airfields can't be the same")
-    errors.add(:airfield_b_id, "Airfields can't be the same")
+    errors.add(:airfield_a_id, I18n.t(".airfields_cant_match"))
+    errors.add(:airfield_b_id, I18n.t(".airfields_cant_match"))
   end
 
   def calculate_distance_between_airfields

@@ -30,6 +30,34 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  heading_into_10th_dimension: "Outside of allowed range"
+  number_must_be_positive: "Should be above 0"
+  it_is_not_even_faked_well: "Does not match any recognized international registrations"
+  connection_full: "Can't accept additional airplane at this time"
+  improper_format: "Has improper format"
+  connection_exists: "Connection already exists"
+  airfield_not_found: 'Choose an exisiting airfield'
+  airfields_cant_match: "Choose two different airfields"
+  activerecord:
+    attributes:
+      user:
+        user_types:
+          admin: "Administrator"
+          basic_user: "User"
+      airplane:
+        states:
+          awaiting: "Awaiting"
+          boarding: "Boarding"
+          unboarding: "Unboarding"
+          flying: "Flying"
+        departure_days:
+          sunday: "Sunday"
+          monday: "Monday"
+          tuesday: "Tuesday"
+          wednesday: "Wednesday"
+          thursday: "Thrusday"
+          friday: "Friday"
+          saturday: "Saturday"
   hello: "Hello world"
   connection_path: "From %{origin} to %{destination}"
   layouts:
@@ -42,20 +70,28 @@ en:
       airplanes: "Airplanes"
       passengers: "Passengers"
   users:
+    index: 
+      new: "New User"
+      user_list: "User list:"
     user_list:
       id: "ID: %{id}"
       email: "Email: %{email}"
       created_at: "Time of creation: %{created_at}"
       updated_at: "Last update: %{updated_at}"
-      user_type: "FIX ENUMS"
+      user_type: "Type: %{user_type}"
       edit: "Edit"
       delete: "Delete"
+    show:
+      welcome_message: "Welcome to FlytApp"
   airfields:
     index: 
       new: "New"
+      airfield_list: "Airfield list:"
     form:
       confirm: "Confirm"
     airfield_list:
+      airfield_plane_capacity: " "
+      current_plane_count: "Planes: %{count}/%{capacity}"
       incoming_connections_count: "Incoming connections: %{count}"
       outgoing_connections_count: "Outgoing connections: %{count}"
       airfield_id: "ID: %{id}"
@@ -78,6 +114,7 @@ en:
   airplanes:
     index: 
       new: "New"
+      airplane_list: "Airplane list:"
     form:
       confirm: "Confirm"
     airplane_list:
@@ -107,6 +144,7 @@ en:
   connections:
     index:
       new: "New"
+      connection_list: "Connection list:"
     connection_list:
       airplane_count: "Airplane count: %{count}"
       connection_distance: "Distance: %{distance} km"
@@ -124,6 +162,7 @@ en:
   passengers:
     index:
       new: "New"
+      passenger_list: "Passenger list:"
     passenger_list:
       passenger_first_name: "%{first_name}"
       passenger_last_name: "%{last_name}"
