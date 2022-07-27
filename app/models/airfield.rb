@@ -58,9 +58,8 @@ class Airfield < ApplicationRecord
   end
 
   def self.normalize_datetime(datetime)
-    if (datetime - Time.now).to_i < 0
-      datetime + 14.days *
-                 (1 - (datetime.to_date - Time.now.to_date).to_i / 14)
+    if datetime < Time.now
+      self.normalize_datetime(datetime + 14.days * (1 + (Time.now.utc.to_date - datetime.to_date).to_i / 14.0).floor - (Time.now.utc.to_date - datetime.to_date)%14)
     else
       datetime - ((datetime.to_date - Time.now.to_date).to_i / 14).floor * 14.days
     end
@@ -68,9 +67,11 @@ class Airfield < ApplicationRecord
 
   def airplanes_at_time(datetime)
     airplanes = []
-
-    if incoming_airplanes.each do |airplane|
-         airplanes << airplane if airplane.estimated_arrival_time < datetime
+    datetime = Airfield.normalize_datetime(datetime)
+    puts datetime
+    if (datetime.to_date - Time.now.utc.to_date).to_i%14 < 7 
+      incoming_airplanes.each do |airplane|
+         airplanes << airplane if airplane.departure_date < datetime
        end
 
       outgoing_airplanes.each do |airplane|
@@ -78,19 +79,40 @@ class Airfield < ApplicationRecord
       end
     else
       incoming_airplanes.each do |airplane|
-        airplanes << airplane if airplane.estimated_arrival_time > datetime
+        airplanes << airplane if airplane.departure_date + 7.days> datetime
       end
 
       outgoing_airplanes.each do |airplane|
-        airplanes << airplane if airplane.departure_date < datetime
+        airplanes << airplane if airplane.departure_date + 7.days< datetime
       end
     end
 
     airplanes
   end
 
-  def can_add_airplane
-    byebug
-    incoming_airplanes.order_by(:departure_date)
+  def can_add_airplane(airplane)
+    if airplane.returning ==  false
+      if airplane.connection.airfield_a == self
+        return can_add_starting_airplane(airplane)
+      else
+        return can_add_landing_airplane(airplane)
+      end
+    else
+      if airplane.connection.airfield_a == self
+        can_add_landing_airplane(airplane)
+      else
+        can_add_starting_airplane(airplane)
+      end
+    end
+  end
+
+  def can_add_starting_airplane(airplane)
+    airplanes_at_time(airplane.departure_date).size < airfield_plane_capacity &&
+    airplanes_at_time(airplane.departure_date - 7.days).size < airfield_plane_capacity
+  end
+
+  def can_add_landing_airplane(airplane)
+    airplanes_at_time(airplane.departure_date).size < airfield_plane_capacity &&
+    airplanes_at_time(airplane.departure_date + 7.days).size < airfield_plane_capacity
   end
 end
