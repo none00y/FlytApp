@@ -1,6 +1,6 @@
 class PassengersController < ApplicationController
   load_and_authorize_resource
-  
+
   def index
     @passengers = Passenger.all
   end

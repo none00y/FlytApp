@@ -1,6 +1,6 @@
 class AirfieldsController < ApplicationController
   load_and_authorize_resource
-  
+
   def index
     @airfields = Airfield.all.order(:name)
   end

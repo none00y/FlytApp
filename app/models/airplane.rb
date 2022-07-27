@@ -12,26 +12,27 @@ class Airplane < ApplicationRecord
 
   def connection_not_full
     return if connection.airfield_a.can_add_airplane(self)
-      errors.add(:connection, I18n.t(".connection_full"))
+
+    errors.add(:connection, I18n.t('.connection_full'))
     en
   end
 
   def passenger_capacity_is_positive_number
     return if passenger_capacity.positive?
 
-    errors.add(:passenger_capacity, I18n.t(".number_must_be_positive"))
+    errors.add(:passenger_capacity, I18n.t('.number_must_be_positive'))
   end
 
   def flight_speed_is_positive_number
     return if flight_speed.positive?
 
-    errors.add(:flight_speed, I18n.t(".number_must_be_positive"))
+    errors.add(:flight_speed, I18n.t('.number_must_be_positive'))
   end
 
   def identifier_has_proper_format
     return if identifier.blank? || identifier.match(/^[A-Z]-[A-Z]{4}|[A-Z,0-9]{1,3}-[A-Z]{3}|N[0-9]{1,5}[A-Z]{0,2}$/)
 
-    errors.add(:identifier, I18n.t(".it_is_not_even_faked_well"))
+    errors.add(:identifier, I18n.t('.it_is_not_even_faked_well'))
   end
 
   enum state: {
@@ -46,9 +47,9 @@ class Airplane < ApplicationRecord
   def self.get_states
     STATES
   end
-  
+
   def self.get_human_states
-    STATES.to_h {|k,v|[Airplane.human_enum_name(:states,k),k]}
+    STATES.to_h { |k, _v| [Airplane.human_enum_name(:states, k), k] }
   end
 
   enum departure_day: [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
@@ -60,7 +61,7 @@ class Airplane < ApplicationRecord
   end
 
   def self.get_human_departure_days
-    DEPARTURE_DAYS.to_h {|k,v|[Airplane.human_enum_name(:departure_days,k),k]}
+    DEPARTURE_DAYS.to_h { |k, _v| [Airplane.human_enum_name(:departure_days, k), k] }
   end
 
   def get_percentage_of_distance_travelled
@@ -76,16 +77,16 @@ class Airplane < ApplicationRecord
   end
 
   def estimated_time_of_travel
-    (connection.distance/flight_speed).hours
+    (connection.distance / flight_speed).hours
   end
-  
+
   def departure_date
-    if state != Airplane.get_states[:flying]
-      time = Time.now.utc.end_of_week(departure_day.to_sym)
-    else 
-      time = Time.now.utc.beginning_of_week(departure_day.to_sym)
+    time = if state == Airplane.get_states[:flying]
+      Time.now.utc.beginning_of_week(departure_day.to_sym)
+    else
+      Time.now.utc.end_of_week(departure_day.to_sym)
     end
-    time + departure_time.seconds_since_midnight 
+    time + departure_time.seconds_since_midnight
   end
 
   def estimated_arrival_time

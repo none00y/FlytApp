@@ -10,16 +10,16 @@ class Passenger < ApplicationRecord
   def first_name_has_proper_format
     return if first_name.blank? || first_name.match(/^[A-Z][a-z ,.'-]+$/i)
 
-    errors.add(:first_name, I18n.t(".improper_format"))
+    errors.add(:first_name, I18n.t('.improper_format'))
   end
 
   def last_name_has_proper_format
     return if last_name.blank? || last_name.match(/^[A-Z][a-z ,.'-]+$/i)
 
-    errors.add(:last_name, I18n.t(".improper_format"))
+    errors.add(:last_name, I18n.t('.improper_format'))
   end
 
-  #obsolete
+  # obsolete
   enum state: {
     free: 0,
     in_airplane: 1

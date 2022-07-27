@@ -1,6 +1,6 @@
 class AirplanesController < ApplicationController
   load_and_authorize_resource
-  
+
   def index
     @airplanes = Airplane.all.order(:identifier)
   end

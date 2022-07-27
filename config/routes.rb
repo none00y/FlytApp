@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     passwords: 'users/passwords',
-    confirmations: 'users/confirmations',
+    confirmations: 'users/confirmations'
   }
   resources :users do
   end
@@ -20,7 +20,6 @@ Rails.application.routes.draw do
 
   resources :passengers do
   end
-
 
   unauthenticated :user do
     devise_scope :user do

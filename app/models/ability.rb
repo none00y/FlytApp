@@ -1,16 +1,14 @@
-class Ability 
+class Ability
   include CanCan::Ability
   def initialize(user)
     user ||= User.new
 
-    if user.admin?
-      can :manage, :all
-    end
+    can :manage, :all if user.admin?
     assign_common_abilities(user)
   end
 
   def assign_common_abilities(user)
     can :manage, User, id: user.id
-    can [:index,:show], [Airplane,Airfield,Connection,Passenger]
+    can [:index, :show], [Airplane, Airfield, Connection, Passenger]
   end
 end
