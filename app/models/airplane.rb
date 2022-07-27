@@ -9,17 +9,11 @@ class Airplane < ApplicationRecord
   validate :passenger_capacity_is_positive_number
   validate :flight_speed_is_positive_number
   validate :identifier_has_proper_format
-  validate :connection_not_full
 
   def connection_not_full
-    unless connection.airfield_a.can_add_airplane(self)
+    return if connection.airfield_a.can_add_airplane(self)
       errors.add(:connection, I18n.t(".connection_full"))
-    end
-
-    unless connection.airfield_b.can_add_airplane(self)
-      errors.add(:connection, I18n.t(".connection_full"))
-    end
-
+    en
   end
 
   def passenger_capacity_is_positive_number
