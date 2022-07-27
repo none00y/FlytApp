@@ -6,7 +6,7 @@ FactoryBot.define do
     flight_speed { rand(700..950) }
     returning { false }
     # departure_day { Airplane.get_departure_days.keys.sample }
-    departure_day { :tuesday }
+    departure_day { Airplane.get_departure_days.keys.sample }
     departure_time { Faker::Time.between(from: Time.now.utc + 6.minutes, to: Time.now.utc + 1.hour) }
 
     state { :awaiting }
