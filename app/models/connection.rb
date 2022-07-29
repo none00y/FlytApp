@@ -19,6 +19,10 @@ class Connection < ApplicationRecord
     errors.add(:airfield_b_id, I18n.t('.connection_exists'))
   end
 
+  def can_add_airplane(airplane)
+    airfield_a.can_add_airplane(airplane) && airfield_b.can_add_airplane(airplane)
+  end
+
   def airfield_a_id_exists
     return unless Airfield.find(airfield_a_id).nil?
 

@@ -1,4 +1,4 @@
-2.times { FactoryBot.create(:user, user_type: User.get_user_types[:admin]) }
+1.times { FactoryBot.create(:user, user_type: User.get_user_types[:admin]) }
 10.times { FactoryBot.create(:airfield) }
 
 airfield_ids = Airfield.all.pluck(:id)

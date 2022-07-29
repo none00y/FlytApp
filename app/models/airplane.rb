@@ -1,5 +1,5 @@
 class Airplane < ApplicationRecord
-  belongs_to :connection
+  belongs_to :connection, optional: true
   has_many :passengers, dependent: :destroy
 
   validates_presence_of :identifier
@@ -12,10 +12,9 @@ class Airplane < ApplicationRecord
   validate :connection_not_full
   
   def connection_not_full
-    return if connection.airfield_a.can_add_airplane(self) && connection.airfield_b.can_add_airplane(self)
+    return if connection.nil? || connection.can_add_airplane(self)
 
     errors.add(:connection, I18n.t('.connection_full'))
-    en
   end
 
   def passenger_capacity_is_positive_number

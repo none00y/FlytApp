@@ -20,7 +20,9 @@ FactoryBot.define do
     trait :flying do
       state { :flying }
     end
-    connection { :connection }
+    trait :connection do
+      connection { :connection }
+    end
 
   end
 end
