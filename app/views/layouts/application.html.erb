@@ -6,9 +6,11 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/le-frog/jquery-ui.min.css' %>
+  </head>
   </head>
   <body>
-      <div id="nav-bar">
+    <div id="nav-bar">
       <%= button_to t(".sign_out"), destroy_user_session_path, method: :post if user_signed_in? %>
       <%= button_to t(".sign_in"), new_user_session_path unless user_signed_in? %>
       <%= button_to t(".airfields"), airfields_path, method: :get %>
@@ -17,6 +19,7 @@
       <%= button_to t(".airplanes"), airplanes_path, method: :get %>
       <%= button_to t(".passengers"), passengers_path, method: :get %>
     </div>
+    <%= render "layouts/notifications" %>
     <%= yield %>
   </body>
 </html>

@@ -18,4 +18,20 @@
 .button_to div {
   display: inline;
   color: black;
+  background-color: goldenrod;
+}
+#nav-bar {
+  background: linear-gradient(to bottom, blue, white);
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  resize:horizontal;
+  border:1px solid #30273a;
+  box-shadow: 0 0 10px #8d78a5;
+  text-align: center;
+}
+body
+{
+  background:rgb(152, 233, 253);
+  text-align: left;
 }
