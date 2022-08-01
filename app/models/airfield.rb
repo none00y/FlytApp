@@ -68,7 +68,6 @@ class Airfield < ApplicationRecord
   def airplanes_at_time(datetime)
     airplanes = []
     datetime = Airfield.normalize_datetime(datetime)
-    puts datetime
     if (datetime.to_date - Time.now.utc.to_date).to_i%14 < 7 
       incoming_airplanes.each do |airplane|
          airplanes << airplane if airplane.departure_date < datetime

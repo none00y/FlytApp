@@ -16,5 +16,6 @@ end
   until airplane.connection.can_add_airplane(airplane) == true
     airplane.connection = Connection.all.sample
   end
+  airplane.save
 }
 5000.times { FactoryBot.create(:passenger) }
