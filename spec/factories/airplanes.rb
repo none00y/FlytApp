@@ -8,7 +8,7 @@ FactoryBot.define do
     # departure_day { Airplane.get_departure_days.keys.sample }
     departure_day { Airplane.get_departure_days.keys.sample }
     departure_time { Faker::Time.between(from: Time.now.utc + 6.minutes, to: Time.now.utc + 1.hour) }
-    
+
     state { :awaiting }
 
     trait :boarding do
@@ -23,6 +23,5 @@ FactoryBot.define do
     trait :connection do
       connection { :connection }
     end
-
   end
 end

@@ -17,9 +17,7 @@ class AirplaneStatusUpdateJob < ApplicationJob
 
     unboarding_airplanes.each do |airplane|
       airplane.passengers.order('RANDOM()').limit(30).update_all(airplane_id: nil)
-      if airplane.passengers.empty?
-        airplane.update(state: Airplane.get_states[:awaiting],percentage_of_distance_travelled: 0, returning: !airplane.returning)
-      end
+      airplane.update(state: Airplane.get_states[:awaiting], percentage_of_distance_travelled: 0, returning: !airplane.returning) if airplane.passengers.empty?
       puts "Unboarding #{airplane.identifier}"
     end
   end
@@ -44,19 +42,19 @@ class AirplaneStatusUpdateJob < ApplicationJob
     airplanes_to_lift_off.update_all(state: Airplane.get_states[:flying])
   end
 
-  def start_boarding_airplanes    
+  def start_boarding_airplanes
     start_time = @current_time + BOARDING_DELAY
     end_time = @current_time + BOARDING_DELAY + REFRESH_TIME
-    if start_time.wday != end_time.wday
-      airplanes_waiting_to_board = Airplane.where('(departure_day::integer = :day_of_week) AND ((departure_time::time >= :start_time) OR (departure_time::time < :end_time))',
-      day_of_week: end_time.wday,
-      start_time: start_time.strftime('%R%Z'),
-      end_time: end_time.strftime('%R%Z'))
+    airplanes_waiting_to_board = if start_time.wday == end_time.wday
+      Airplane.where('(departure_day::integer = :day_of_week) AND ((departure_time::time >= :start_time) AND (departure_time::time < :end_time))',
+                     day_of_week: start_time.wday,
+                     start_time: start_time.strftime('%R%Z'),
+                     end_time: end_time.strftime('%R%Z'))
     else
-      airplanes_waiting_to_board = Airplane.where('(departure_day::integer = :day_of_week) AND ((departure_time::time >= :start_time) AND (departure_time::time < :end_time))',
-      day_of_week: start_time.wday,
-      start_time: start_time.strftime('%R%Z'),
-      end_time: end_time.strftime('%R%Z'))
+      Airplane.where('(departure_day::integer = :day_of_week) AND ((departure_time::time >= :start_time) OR (departure_time::time < :end_time))',
+                     day_of_week: end_time.wday,
+                     start_time: start_time.strftime('%R%Z'),
+                     end_time: end_time.strftime('%R%Z'))
     end
     puts (@current_time + BOARDING_DELAY).strftime('%R%Z')
     puts (@current_time + BOARDING_DELAY + REFRESH_TIME).strftime('%R%Z')

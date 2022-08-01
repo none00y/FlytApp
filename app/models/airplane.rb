@@ -10,7 +10,7 @@ class Airplane < ApplicationRecord
   validate :flight_speed_is_positive_number
   validate :identifier_has_proper_format
   validate :connection_not_full
-  
+
   def connection_not_full
     return if connection.nil? || connection.can_add_airplane(self)
 
@@ -88,13 +88,13 @@ class Airplane < ApplicationRecord
     end
     time + departure_time.seconds_since_midnight
   end
-  
+
   def future_departure_date
     Time.now.utc.end_of_week(departure_day.to_sym) + departure_time.seconds_since_midnight
   end
 
   def departure_count_until(datetime)
-    ((future_departure_date.to_date - datetime.to_date)/7.0).ceil
+    ((future_departure_date.to_date - datetime.to_date) / 7.0).ceil
   end
 
   def estimated_arrival_time
